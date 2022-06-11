@@ -1,36 +1,45 @@
 package HT5ADV;
 
-public class Rectangle {
-    private int sideA;
-    private int sideB;
+import java.util.Objects;
 
-    public Rectangle(int a, int b) {
-        this.sideA = a;
-        this.sideB = b;
+public class Rectangle {
+    private double sideA;
+    private double sideB;
+
+    public Rectangle(double a, double b) {
+        if (a <= 0 && b <= 0) throw new IllegalArgumentException();
+        else if (a == Double.MIN_VALUE || b == Double.MIN_VALUE) throw new IllegalArgumentException();
+        else {
+            this.sideA = a;
+            this.sideB = b;
+        }
     }
 
-    public Rectangle(int a) {
-        this.sideA = a;
-        this.sideB = 5;
+    public Rectangle(double a) {
+        if (a <= 0) throw new IllegalArgumentException();
+        else{
+            this.sideA = a;
+            this.sideB = a;
+        }
     }
     public Rectangle() {
-        this.sideA = 4;
-        this.sideB = 3;
+        this.sideA = 4.0;
+        this.sideB = 3.0;
     }
 
-    public int getSideA() {
+    public double getSideA() {
         return sideA;
     }
 
-    public int getSideB() {
+    public double getSideB() {
         return sideB;
     }
 
-    public int area(){
+    public double area(){
         return sideA*sideB;
     }
 
-    public int perimeter(){
+    public double perimeter(){
         return 2 * (sideA + sideB);
     }
 
@@ -43,8 +52,21 @@ public class Rectangle {
     }
 
     public void replaceSides(){
-        int temp = sideA;
+        double temp = sideA;
         sideA = sideB;
         sideB = temp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rectangle rectangle = (Rectangle) o;
+        return Double.compare(rectangle.sideA, sideA) == 0 && Double.compare(rectangle.sideB, sideB) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sideA, sideB);
     }
 }

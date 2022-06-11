@@ -1,18 +1,28 @@
 package HT5ADV;
 
 public class ArrayRectangles {
+    public Rectangle[] getRectangleArray() {
+        return rectangleArray;
+    }
+
     private Rectangle[] rectangleArray;
 
-    public ArrayRectangles(int n){
-        rectangleArray = new Rectangle[n];
+    public ArrayRectangles(int size) {
+        if (size <= 0 ) throw new IllegalArgumentException();
+        else if (size == 1) {rectangleArray = new Rectangle[0];}
+        else {
+            rectangleArray = new Rectangle[size];
+        }
     }
 
-    public ArrayRectangles(Rectangle... rectangle)
-    {
-        rectangleArray = rectangle;
+    public ArrayRectangles(Rectangle... rectangles) {
+        if (rectangles == null || rectangles.length == 0) throw new IllegalArgumentException();
+        else {
+            rectangleArray = rectangles;
+        }
     }
 
-    public boolean addRectangle(Rectangle rectangle){
+    public boolean addRectangle(Rectangle rectangle) {
         for (int i = 0; i < rectangleArray.length; ++i)
         {
             if (rectangleArray[i] == null)
@@ -24,29 +34,41 @@ public class ArrayRectangles {
         return false;
     }
 
-    public int numberMaxArea(Rectangle[] rectangleArray){
-        int maxArea = 0;
+    public int size() {
+        int count = 0;
+        for (int i = 0; i < getRectangleArray().length; ++i) {
+            if (getRectangleArray()[i] != null) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
+    public int indexMaxArea() {
+        double maxArea = 0;
         int maxAreaIndex = -1;
         for (int i = 0; i < rectangleArray.length; ++i) {
-            if (rectangleArray[i] != null && rectangleArray[i].area() > maxArea)
+            if (rectangleArray[i] != null && rectangleArray[i].area() > maxArea) {
                 maxArea = rectangleArray[i].area();
                 maxAreaIndex = i;
+            }
         }
         return maxAreaIndex;
     }
 
-    public int numberMinPerimeter(Rectangle[] rectangleArray) {
-        int minPerimeter = 0;
+    public int indexMinPerimeter() {
+        double minPerimeter = Double.MAX_VALUE;
         int minPerimeterIndex = -1;
         for (int i = 0; i < rectangleArray.length; ++i) {
-            if (rectangleArray[i] != null && rectangleArray[i].perimeter() < minPerimeter)
-                minPerimeter = rectangleArray[i].area();
-            minPerimeterIndex = i;
+            if (rectangleArray[i] != null && rectangleArray[i].perimeter() < minPerimeter) {
+                minPerimeter = rectangleArray[i].perimeter();
+                minPerimeterIndex = i;
+            }
         }
         return minPerimeterIndex;
     }
 
-    public int numberSquares(Rectangle[] rectangleArray){
+    public int numberSquares() {
         int countSquare = 0;
         for (int i = 0; i < rectangleArray.length; ++i) {
             if (rectangleArray[i] != null && rectangleArray[i].isSquare())
@@ -54,5 +76,4 @@ public class ArrayRectangles {
         }
         return countSquare;
     }
-
 }
